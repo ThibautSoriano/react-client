@@ -28,7 +28,7 @@ networkInterface.use([{
   },
 }]);
 
-const wsClient = new SubscriptionClient(`ws://thibaut-server.herokuapp.com/subscriptions`, {
+const wsClient = new SubscriptionClient(`wss://thibaut-server.herokuapp.com/subscriptions`, {
   reconnect: true,
 });
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
