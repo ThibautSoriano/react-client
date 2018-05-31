@@ -20,15 +20,18 @@ import {
 
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
-
-const networkInterface = createNetworkInterface({ uri: 'https://thibaut-server.herokuapp.com/graphql' });
+// invert lines below to deploy to heroku
+// const networkInterface = createNetworkInterface({ uri: 'https://thibaut-server.herokuapp.com/graphql' });
+const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
 networkInterface.use([{
   applyMiddleware(req, next) {
     setTimeout(next, 500);
   },
 }]);
 
-const wsClient = new SubscriptionClient(`wss://thibaut-server.herokuapp.com/subscriptions`, {
+// invert lines below to deploy to heroku
+// const wsClient = new SubscriptionClient(`wss://thibaut-server.herokuapp.com/subscriptions`, {
+const wsClient = new SubscriptionClient(`ws://localhost:4000/subscriptions`, {
   reconnect: true,
 });
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(

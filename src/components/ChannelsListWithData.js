@@ -9,6 +9,7 @@ import {
 } from 'react-apollo';
 
 import AddChannel from './AddChannel';
+import AddTwitt from './AddTwitt';
 
 const ChannelsList = ({ data: {loading, error, channels }}) => {
   if (loading) {
@@ -28,6 +29,9 @@ const ChannelsList = ({ data: {loading, error, channels }}) => {
           </Link>
         </div>)
       )}
+      <div>
+      <AddTwitt />
+      </div>
     </div>
   );
 };
