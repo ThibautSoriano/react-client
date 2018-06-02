@@ -57,14 +57,14 @@ class TwittsList extends Component {
         }
         const twittWithVotesChanged = subscriptionData.data.votesCountChanged;
 
-        prev.twitts.forEach((currentTwitt) => {
-          if (currentTwitt.id == twittWithVotesChanged.id) {
+        // prev.twitts.forEach((currentTwitt) => {
+          // if (currentTwitt.id == twittWithVotesChanged.id) {
             
             // prev.twitts[index].votesCount = twittWithVotesChanged.votesCount;
             return Object.assign ({}, prev, 
               {
                   twitts: prev.twitts.map((currentTwitt) => {
-                    if (currentTwitt.id == twittWithVotesChanged.id) {
+                    if (currentTwitt._id === twittWithVotesChanged._id) {
                       var obj = JSON.parse(JSON.stringify(currentTwitt));
                       obj.votesCount = twittWithVotesChanged.votesCount;
                       return obj;
@@ -75,8 +75,8 @@ class TwittsList extends Component {
               });
             
             // console.log("current twitt votes: ", currentTwitt);
-          }
-        });
+          // }
+        // });
       
       }
     });
@@ -107,7 +107,7 @@ class TwittsList extends Component {
       
         { this.state.twitts.map( twitt =>
         (
-          <Grid key={twitt.id} item xs={6} sm={3} style={{minHeight: "100px", marginTop: 20}}>
+          <Grid key={twitt._id} item xs={6} sm={3} style={{minHeight: "100px", marginTop: 20}}>
           <Card>
           <CardContent>
           <Grid item xs={12}>
@@ -123,7 +123,7 @@ class TwittsList extends Component {
           </Grid>
           </CardContent>
           <CardActions>
-            <VoteTwitt id={twitt.id}/>
+            <VoteTwitt id={twitt._id}/>
           
         </CardActions>
         </Card>
@@ -147,7 +147,7 @@ function compare(a,b) {
 const twittsSubscription = gql`
   subscription twittAdded($s: String) {
     twittAdded(s: $s) {
-      id
+      _id
       title
       text
       votesCount
@@ -158,7 +158,7 @@ const twittsSubscription = gql`
 const voteForTwittSubscription = gql`
   subscription votesCountChanged($s: String) {
     votesCountChanged(s: $s) {
-      id
+      _id
       title
       text
       votesCount
@@ -169,7 +169,7 @@ const voteForTwittSubscription = gql`
 export const twittsQuery = gql`
   query twittsQuery {
     twitts {
-      id
+      _id
       title
       text
       votesCount

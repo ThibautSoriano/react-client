@@ -25,7 +25,7 @@ const VoteTwitt = ({ mutate, id }) => {
 };
 
 const voteForTwittMutation = gql`
-  mutation voteForTwitt($id: ID!) {
+  mutation voteForTwitt($id: String!) {
     voteForTwitt(id: $id)
   }
 `;
