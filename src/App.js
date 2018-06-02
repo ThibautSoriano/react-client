@@ -13,7 +13,8 @@ import AddTwitt from './components/AddTwitt';
 import TwittsList from './components/TwittsList';
 
 // interface for queries
-const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
+const networkInterface = createNetworkInterface({ uri: 'https://thibaut-server.herokuapp.com/graphql' });
+// const networkInterface = createNetworkInterface({ uri: 'http://localhost:4000/graphql' });
 networkInterface.use([{
   applyMiddleware(req, next) {
     setTimeout(next, 500);
@@ -21,7 +22,8 @@ networkInterface.use([{
 }]);
 
 // interface for subscription
-const wsClient = new SubscriptionClient(`ws://localhost:4000/subscriptions`, {
+// const wsClient = new SubscriptionClient(`ws://localhost:4000/subscriptions`, {
+const wsClient = new SubscriptionClient(`wss://thibaut-server.herokuapp.com/subscriptions`, {
   reconnect: true,
 });
 
