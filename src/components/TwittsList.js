@@ -96,8 +96,10 @@ class TwittsList extends Component {
     }
 
     // this.setState({twitts: this.props.data.twitts});
-    this.state = {twitts: this.props.data.twitts};
+    var sorted = JSON.parse(JSON.stringify(this.props.data.twitts)).sort(compare);
+    this.state = {twitts: sorted};
     
+    // console.log(sorted);
     return (
       <div style={{ padding: 20 }}>
         <Grid container spacing={24}>
@@ -131,6 +133,14 @@ class TwittsList extends Component {
         
       </div>);
   }
+}
+
+function compare(a,b) {
+  if (a.votesCount < b.votesCount)
+    return 1;
+  if (a.votesCount > b.votesCount)
+    return -1;
+  return 0;
 }
 
 
