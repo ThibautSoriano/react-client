@@ -23,11 +23,12 @@ handleChange = (evt, id) => {
 };
 
   handleClick = (evt) => {
-    console.log(evt);
     this.props.mutate({
       variables: {
+        sessionId: this.props.sessionId,
         message: this.state.title,
-        message2: this.state.text
+        message2: this.state.text,
+        token: this.props.token
       }
     }).then((resp) => {
       console.log("resp : " + resp);
@@ -37,28 +38,28 @@ handleChange = (evt, id) => {
 render() {
   return (
   <div>
-           <h1>You can add twitts and vote</h1>
-           
-           <TextField
-              id="title"
-              label="Title"
-              value={this.state.title}
-              onChange={(e) => this.handleChange(e, 1)}
-              style={{ margin: 20 }}
-            />
-       {/* <input type="text" value={this.state.title} onChange={(e) => this.handleChange(e, 1)} /> */}
-       <TextField
-              id="text"
-              label="Text"
-              value={this.state.text}
-              onChange={(e) => this.handleChange(e, 2)}
-              style={{ margin: 20 }}
-            />
-       {/* <input type="text" value={this.state.text} onChange={(e) => this.handleChange(e, 2)} /> */}
-           <Button variant="raised" color="primary" onClick={this.handleClick} style={{ margin: 20 }}>
-              Add twitt
-            </Button>
-       </div>);
+      <h1>You can add twitts and vote</h1>
+      
+      <TextField
+        id="title"
+        label="Title"
+        value={this.state.title}
+        onChange={(e) => this.handleChange(e, 1)}
+        style={{ margin: 20 }}
+      />
+  {/* <input type="text" value={this.state.title} onChange={(e) => this.handleChange(e, 1)} /> */}
+  <TextField
+        id="text"
+        label="Text"
+        value={this.state.text}
+        onChange={(e) => this.handleChange(e, 2)}
+        style={{ margin: 20 }}
+      />
+  {/* <input type="text" value={this.state.text} onChange={(e) => this.handleChange(e, 2)} /> */}
+      <Button variant="raised" color="primary" onClick={this.handleClick} style={{ margin: 20 }}>
+        Add twitt
+      </Button>
+  </div>);
 }
 }
 
@@ -91,8 +92,8 @@ render() {
 // };
 
 const addTwittMutation = gql`
-  mutation addTwitt($message: String!, $message2: String!) {
-    addTwitt(title: $message, text: $message2)
+  mutation addTwitt($sessionId: String!, $message: String!, $message2: String!, $token: String!) {
+    addTwitt(sessionId: $sessionId, title: $message, text: $message2, token: $token)
   }
 `;
 
